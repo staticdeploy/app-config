@@ -1,0 +1,79 @@
+{
+  "name": "@staticdeploy/app-config",
+  "version": "1.0.0",
+  "description": "Configuration for static apps",
+  "keywords": [
+    "static",
+    "server",
+    "configuration"
+  ],
+  "scripts": {
+    "precommit": "yarn lint",
+    "compile": "tsc",
+    "prettier": "prettier 'src/**/*.ts' 'test/**/*.ts'",
+    "prettify": "yarn prettier --write",
+    "lint:prettier": "yarn prettier --list-different",
+    "lint:ts-lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "yarn lint:prettier && yarn lint:ts-lint",
+    "test": "mocha --compilers ts:ts-node/register --recursive",
+    "coverage": "nyc -r html -r lcov -r text-summary --extension .ts npm test",
+    "publish-coverage": "codecov"
+  },
+  "main": "./lib/index.js",
+  "bin": {
+    "inject-config": "./bin/inject-config.js",
+    "dev-config-server": "./bin/dev-config-server.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "docs"
+  ],
+  "author": "Paolo Scanferla <paolo.scanferla@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staticdeploy/app-config.git"
+  },
+  "homepage": "https://github.com/staticdeploy/app-config",
+  "bugs": {
+    "url": "https://github.com/staticdeploy/app-config/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.1",
+    "@types/cheerio": "^0.22.5",
+    "@types/cors": "^2.8.1",
+    "@types/debug": "^0.0.30",
+    "@types/dotenv": "^4.0.2",
+    "@types/express": "^4.0.39",
+    "@types/fs-readdir-recursive": "^1.0.0",
+    "@types/mocha": "^2.2.44",
+    "@types/supertest": "^2.0.3",
+    "@types/yargs": "^8.0.2",
+    "chai": "^4.0.2",
+    "codecov": "^3.0.0",
+    "create-fs-tree": "^1.0.0",
+    "husky": "^0.14.3",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
+    "prettier": "^1.8.0",
+    "supertest": "^3.0.0",
+    "ts-node": "^3.1.0",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "typescript": "^2.6.1",
+    "vm2": "^3.5.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "fs-readdir-recursive": "^1.0.0",
+    "yargs": "^10.0.3"
+  }
+}
