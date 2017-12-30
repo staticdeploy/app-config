@@ -1,6 +1,6 @@
 // tslint:disable:no-console
 import cors = require("cors");
-import { config } from "dotenv";
+import dotenv = require("dotenv");
 import express = require("express");
 import yargs = require("yargs");
 
@@ -17,15 +17,28 @@ const argv = yargs
         describe: "Port to listen on",
         type: "string"
     })
+    .option("envKeyPrefix", {
+        default: "APP_CONFIG_",
+        describe:
+            "Prefix of the environment variables to use for configuration",
+        type: "string"
+    })
+    .wrap(Math.min(120, yargs.terminalWidth()))
     .strict().argv as IArgv;
 
 // Use try-catch to give more descriptive error messages
 try {
     const { port } = argv;
-    config();
+    dotenv.config();
     express()
         .use(cors({ origin: /.*/, credentials: true }))
-        .get("/app-config.js", getConfigScriptHandler())
+        .get(
+            "/app-config.js",
+            getConfigScriptHandler({
+                rawConfig: process.env,
+                configKeyPrefix: argv.envKeyPrefix
+            })
+        )
         .listen(port, () => {
             console.log(`dev-config-server started on port ${port}`);
         });

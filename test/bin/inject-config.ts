@@ -1,18 +1,20 @@
 import { expect } from "chai";
 import { load } from "cheerio";
+import { execSync } from "child_process";
 import { createTree, destroyTree } from "create-fs-tree";
+import { readFileSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 
-import getConfiguredHtml from "../src/getConfiguredHtml";
-
-describe("getConfiguredHtml", () => {
+describe("inject-config", () => {
+    const injectConfigPath = join(__dirname, "../../src/bin/inject-config.ts");
     const workdir = join(tmpdir(), "app-config");
     const file = join(workdir, "index.html");
     const selector = "script#app-config";
     const env = {
-        APP_CONFIG_MY_VAR: "VALUE"
+        APP_CONFIG_KEY: "VALUE"
     };
+    const envKeyPrefix = "APP_CONFIG_";
 
     beforeEach(() => {
         createTree(workdir, {
@@ -33,17 +35,15 @@ describe("getConfiguredHtml", () => {
         destroyTree(workdir);
     });
 
-    it("injects the generated config script into file@file, element@selector", () => {
-        const html = getConfiguredHtml(file, selector, env).toString();
-        const $ = load(html);
+    it("injects the config script generated from environment variables into the specified file", () => {
+        execSync(
+            `$(npm bin)/ts-node ${injectConfigPath} --file ${file} --selector ${selector} --envKeyPrefix ${envKeyPrefix}`,
+            { env: { ...process.env, ...env } }
+        );
+        const configuredFile = readFileSync(file, "utf8");
+        const $ = load(configuredFile);
         const scriptContent = $(selector).html();
         expect(scriptContent).to.have.string("window.APP_CONFIG");
-    });
-
-    it("removes the src attribute from element@selector", () => {
-        const html = getConfiguredHtml(file, selector, env).toString();
-        const $ = load(html);
-        const scriptSrc = $(selector).attr("src");
-        expect(scriptSrc).to.equal(undefined);
+        expect(scriptContent).to.have.string("KEY");
     });
 });

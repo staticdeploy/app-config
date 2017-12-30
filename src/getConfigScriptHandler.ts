@@ -1,11 +1,18 @@
 import { RequestHandler } from "express";
 
-import generateConfigScript, { IEnv } from "./generateConfigScript";
+import generateConfigScript from "./generateConfigScript";
+import IConfig from "./IConfig";
+
+export interface IOptions {
+    rawConfig: IConfig;
+    configKeyPrefix: string;
+}
 
 export default function getConfigScriptHandler(
-    env: IEnv = process.env
+    options: IOptions
 ): RequestHandler {
-    const script = generateConfigScript(env);
+    const { rawConfig, configKeyPrefix } = options;
+    const script = generateConfigScript({ rawConfig, configKeyPrefix });
     return (_req, res) =>
         res
             .type("js")

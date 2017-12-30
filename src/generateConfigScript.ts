@@ -1,15 +1,20 @@
-export interface IEnv {
-    [key: string]: string | undefined;
+import { startsWith } from "lodash";
+
+import IConfig from "./IConfig";
+
+export interface IOptions {
+    rawConfig: IConfig;
+    configKeyPrefix: string;
 }
 
-export default function generateConfigScript(env: IEnv): string {
-    const prefixRegexp = /^APP_CONFIG_/;
-    const config = Object.keys(env)
-        .filter(key => prefixRegexp.test(key))
-        .reduce<IEnv>(
+export default function generateConfigScript(options: IOptions): string {
+    const { rawConfig, configKeyPrefix } = options;
+    const config = Object.keys(rawConfig)
+        .filter(key => startsWith(key, configKeyPrefix))
+        .reduce<IConfig>(
             (c, key) => ({
                 ...c,
-                [key.replace(prefixRegexp, "")]: env[key]
+                [key.slice(configKeyPrefix.length)]: rawConfig[key]
             }),
             {}
         );

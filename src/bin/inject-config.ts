@@ -1,13 +1,14 @@
 // tslint:disable:no-console
-import { writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import yargs = require("yargs");
 
-import getConfiguredHtml from "../getConfiguredHtml";
+import configureHtml from "../configureHtml";
 
 interface IArgv extends yargs.Arguments {
     file: string;
     selector: string;
+    envKeyPrefix: string;
 }
 
 const argv = yargs
@@ -15,7 +16,7 @@ const argv = yargs
     .option("file", {
         coerce: resolve,
         demandOption: true,
-        describe: "File to inject config into",
+        describe: "Path of the file to inject config into",
         type: "string"
     })
     .option("selector", {
@@ -23,15 +24,25 @@ const argv = yargs
         describe: "Selector for the script element to inject config into",
         type: "string"
     })
+    .option("envKeyPrefix", {
+        default: "APP_CONFIG_",
+        describe:
+            "Prefix of the environment variables to use for configuration",
+        type: "string"
+    })
     .wrap(Math.min(120, yargs.terminalWidth()))
     .strict().argv as IArgv;
 
 // Use try-catch to give more descriptive error messages
 try {
-    writeFileSync(
-        argv.file,
-        getConfiguredHtml(argv.file, argv.selector, process.env)
-    );
+    const html = readFileSync(argv.file);
+    const configuredHtml = configureHtml({
+        html: html,
+        selector: argv.selector,
+        rawConfig: process.env,
+        configKeyPrefix: argv.envKeyPrefix
+    });
+    writeFileSync(argv.file, configuredHtml);
 } catch (err) {
     console.error(
         `Error injecting config into ${argv.file} @ ${argv.selector}`
