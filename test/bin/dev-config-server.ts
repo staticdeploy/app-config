@@ -28,7 +28,7 @@ describe("dev-config-server", () => {
             ],
             { env: { ...process.env, ...env } }
         );
-        setTimeout(done, 1000);
+        setTimeout(done, 4000);
     });
     afterEach(() => {
         server.kill();

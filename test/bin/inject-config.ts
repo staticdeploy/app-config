@@ -35,7 +35,8 @@ describe("inject-config", () => {
         destroyTree(workdir);
     });
 
-    it("injects the config script generated from environment variables into the specified file", () => {
+    it("injects the config script generated from environment variables into the specified file", function() {
+        this.timeout(5000);
         execSync(
             `$(npm bin)/ts-node ${injectConfigPath} --file ${file} --selector ${selector} --envKeyPrefix ${envKeyPrefix}`,
             { env: { ...process.env, ...env } }
