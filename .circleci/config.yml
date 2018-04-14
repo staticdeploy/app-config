@@ -40,7 +40,7 @@ jobs:
 
 workflows:
   version: 2
-  qa-docker-npm:
+  qa-npm:
     jobs:
       - qa:
           # Run for all branches and all tags
