@@ -1,5 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/@staticdeploy/app-config.svg)](https://www.npmjs.com/package/@staticdeploy/app-config)
-[![build status](https://travis-ci.org/staticdeploy/app-config.svg?branch=master)](https://travis-ci.org/staticdeploy/app-config)
+[![build status](https://img.shields.io/circleci/project/github/staticdeploy/app-config.svg)](https://circleci.com/gh/staticdeploy/app-config)
 [![coverage status](https://codecov.io/github/staticdeploy/app-config/coverage.svg?branch=master)](https://codecov.io/github/staticdeploy/app-config?branch=master)
 [![dependency status](https://david-dm.org/staticdeploy/app-config.svg)](https://david-dm.org/staticdeploy/app-config)
 [![devDependency status](https://david-dm.org/staticdeploy/app-config/dev-status.svg)](https://david-dm.org/staticdeploy/app-config#info=devDependencies)
@@ -42,8 +42,9 @@ Then:
 #### In production
 
 * build your app and get the path of the app's `index.html` (for example, for
-  apps built with [create-react-app](https://github.com/facebookincubator/create-react-app)
-  the path is `build/index.html`)
+  apps built with
+  [create-react-app](https://github.com/facebookincubator/create-react-app) the
+  path is `build/index.html`)
 
 * defining configuration via environment variables:
 
