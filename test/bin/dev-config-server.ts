@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ChildProcess, spawn } from "child_process";
 import { join } from "path";
-import request = require("supertest");
+import request from "supertest";
 import { VM } from "vm2";
 
 describe("dev-config-server", () => {

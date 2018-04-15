@@ -1,7 +1,7 @@
 // tslint:disable:no-console
-import cors = require("cors");
-import dotenv = require("dotenv");
-import express = require("express");
+import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
 import yargs = require("yargs");
 
 import getConfigScriptHandler from "../getConfigScriptHandler";

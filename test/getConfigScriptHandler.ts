@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import express = require("express");
-import request = require("supertest");
+import express from "express";
+import request from "supertest";
 import { VM } from "vm2";
 
 import getConfigScriptHandler from "../src/getConfigScriptHandler";
