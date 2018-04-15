@@ -12,3 +12,7 @@ yarn-error.log*
 # Nyc (test coverage) files
 /coverage
 /.nyc_output
+
+# Stryker (mutation coverage) files
+/reports
+/.stryker-tmp

@@ -20,6 +20,9 @@ jobs:
       - run:
           name: Publish code coverage report
           command: yarn publish-coverage
+      - run:
+          name: Calculate mutation coverage
+          command: yarn mutation-coverage
   npm-publish:
     docker:
       - image: circleci/node
