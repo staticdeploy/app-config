@@ -22,7 +22,7 @@ jobs:
           command: yarn publish-coverage
       - run:
           name: Calculate mutation coverage
-          command: yarn mutation-coverage
+          command: yarn mutation-coverage --maxConcurrentTestRunners 4
   npm-publish:
     docker:
       - image: circleci/node
