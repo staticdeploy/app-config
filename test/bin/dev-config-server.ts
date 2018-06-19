@@ -12,23 +12,22 @@ describe("dev-config-server", () => {
     const env = {
         APP_CONFIG_KEY: "VALUE"
     };
-    const envKeyPrefix = "APP_CONFIG_";
     let server: ChildProcess;
 
-    beforeEach(function(done) {
-        this.timeout(5000);
+    beforeEach(async function() {
+        this.timeout(10000);
         server = spawn(
             require.resolve("ts-node/dist/bin.js"),
-            [
-                devConfigServerPath,
-                "--port",
-                "3456",
-                "--envKeyPrefix",
-                envKeyPrefix
-            ],
+            [devConfigServerPath],
             { env: { ...process.env, ...env } }
         );
-        setTimeout(done, 4000);
+        await new Promise(resolve => {
+            server.stdout.on("data", chunk => {
+                if (/dev-config-server started/.test(chunk.toString())) {
+                    resolve();
+                }
+            });
+        });
     });
     afterEach(() => {
         server.kill();
