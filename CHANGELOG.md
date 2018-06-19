@@ -1,3 +1,9 @@
+## 2.0.1 (June 19, 2018)
+
+Chores:
+
+- update dependencies
+
 ## 2.0.0 (December 30, 2017)
 
 Features:
