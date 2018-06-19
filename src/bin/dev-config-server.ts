@@ -2,7 +2,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import yargs = require("yargs");
+import yargs from "yargs";
 
 import getConfigScriptHandler from "../getConfigScriptHandler";
 

@@ -1,7 +1,7 @@
 // tslint:disable:no-console
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import yargs = require("yargs");
+import yargs from "yargs";
 
 import configureHtml from "../configureHtml";
 
