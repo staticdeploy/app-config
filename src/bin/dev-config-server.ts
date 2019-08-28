@@ -8,6 +8,7 @@ import getConfigScriptHandler from "../getConfigScriptHandler";
 
 interface IArgv extends yargs.Arguments {
     port: string;
+    envKeyPrefix: string;
 }
 
 const argv = yargs

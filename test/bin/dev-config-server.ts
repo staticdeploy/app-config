@@ -22,7 +22,7 @@ describe("dev-config-server", () => {
             { env: { ...process.env, ...env } }
         );
         await new Promise(resolve => {
-            server.stdout.on("data", chunk => {
+            server.stdout!.on("data", chunk => {
                 if (/dev-config-server started/.test(chunk.toString())) {
                     resolve();
                 }

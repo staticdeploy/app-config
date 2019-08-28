@@ -1,0 +1,5 @@
+{
+    "hooks": {
+        "pre-commit": "yarn compile && yarn lint && yarn test"
+    }
+}
